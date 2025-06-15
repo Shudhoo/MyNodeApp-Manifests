@@ -5,7 +5,7 @@ metadata:
   name: ingress-node-app
   namespace: project-namespace
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: ""
 spec:
   ingressClassName: nginx
   rules:
