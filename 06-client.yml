@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: client-cont
-          image: shudhodhan/nodeapp:ImageTag
+          image: shudhodhan/nodeapp:13
           ports:
             - containerPort: 5173
 
