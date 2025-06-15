@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: client-cont
-          image: shudhodhan/nodeappclient:20
+          image: shudhodhan/nodeappclient:23
           ports:
             - containerPort: 5173
 
