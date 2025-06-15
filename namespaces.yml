@@ -1,0 +1,12 @@
+# This is a Namespaces.yml manifest file which creates a isolated environment to run Client-Server (User facing Application)
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: project-namespace
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mongo-namespace

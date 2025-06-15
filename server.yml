@@ -1,0 +1,41 @@
+# this is manifest file for server e.i node.js and express.js
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-dep
+  namespace: project-namespace
+  labels:
+    app: serverd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testserver
+  template:
+    metadata:
+      labels:
+        app: testserver
+    spec:
+      containers:
+        - name: server-cont
+          image: shudhodhan/nodeapp:server2
+          ports: 
+            - containerPort: 3001
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-svc
+  namespace: project-namespace
+  labels:
+    app: servers
+spec:
+  type: ClusterIP
+  selector:
+    app: testserver
+  ports:
+    - port: 3001
+      targetPort: 3001
+      

@@ -1,0 +1,27 @@
+# This is an Ingress Controller used to access the pods outside of Kubernetes-Cluster
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-node-app
+  namespace: project-namespace
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:  
+            name: client-svc
+            port:
+              number: 5173
+      - path: /api/
+        pathType: Prefix
+        backend:
+          service:
+            name: server-svc
+            port:
+              number: 3001

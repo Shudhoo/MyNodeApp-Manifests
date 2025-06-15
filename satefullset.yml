@@ -1,0 +1,70 @@
+# This is statefullset for spinning up my MongoDB Pods
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db-statefullset
+  namespace: mongo-namespace
+  labels:
+    app: statefullsets
+spec:
+  serviceName: statefull-service  # this is the name of service for my StatefullSet
+  selector: 
+    matchLabels:
+      app: stateapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stateapp
+    spec:
+      containers:
+        - name: mongo-db
+          image: mongo:8.0
+          env: 
+            - name: x
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config-map
+                  key: MONGO_INITDB_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret-key
+                  key: MONGO_INITDB_ROOT_PASSWORD
+          command: ["mongod", "--bind_ip_all"]
+#            - mongod    # start mongodb server
+#            - "--bind_ip_all"   # allows mongodb to listen on all network interfaces # use this when there is config map 
+#            - "--config=/etc/mongo/mongodb.conf"    # custome configuration file 
+          volumeMounts:
+            - name: mongo-volume
+              mountPath: /data/db  # path inside mongodb
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-volume
+      spec: 
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: manual
+        resources:
+          requests:
+            storage: 1Gi
+    
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-service
+  namespace: mongo-namespace
+  labels:
+    app: statefullservice
+spec:
+  clusterIP: None  # headless service
+  selector:
+    app: stateapp
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  

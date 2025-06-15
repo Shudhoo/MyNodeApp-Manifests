@@ -1,0 +1,8 @@
+# this is configmap for mongodb username
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config-map
+  namespace: mongo-namespace
+data:
+  MONGO_INITDB_ROOT_USERNAME: root

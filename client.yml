@@ -1,0 +1,41 @@
+# this is manifest file for client that is React(vite)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-dep
+  namespace: project-namespace
+  labels:
+    app: clientd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testclient 
+  template:
+    metadata:
+      labels:
+        app: testclient
+    spec:
+      containers:
+        - name: client-cont
+          image: shudhodhan/nodeapp:client2
+          ports:
+            - containerPort: 5173
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-svc
+  namespace: project-namespace
+  labels:
+    app: clients
+spec:
+  type: NodePort
+  selector:
+    app: testclient
+  ports:
+    - port: 5173
+      targetPort: 5173
+      nodePort: 30007
