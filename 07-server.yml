@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: server-cont
-          image: shudhodhan/nodeapp:serverImageTag
+          image: shudhodhan/nodeapp:ImageTag
           ports: 
             - containerPort: 3001
 
