@@ -28,14 +28,14 @@ spec:
               memory: "256Mi"          
           livenessProbe:
             tcpSocket:
-              port: 5173  # This is for node later if changed the image to nginx make it 80
+              port: 80  # This is for node later if changed the image to nginx make it 80
             initialDelaySeconds: 10
             periodSeconds: 5
             timeoutSeconds: 4
             failureThreshold: 2
           readinessProbe:
             tcpSocket:
-              port: 5173  # This is for node later if changed the image to nginx make it 80
+              port: 80  # This is for node later if changed the image to nginx make it 80
             initialDelaySeconds: 10
             periodSeconds: 5
             timeoutSeconds: 4
