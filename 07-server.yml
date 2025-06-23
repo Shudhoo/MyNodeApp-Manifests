@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: server-cont
-          image: shudhodhan/nodeappserver:32
+          image: shudhodhan/nodeappserver:33
           resources:
             requests:
               cpu: "300m"
