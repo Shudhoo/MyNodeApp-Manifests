@@ -19,6 +19,27 @@ spec:
       containers:
         - name: server-cont
           image: shudhodhan/nodeappserver:27
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "256Mi"
+            limits:
+              cpu: "700m"
+              memory: "512Mi"
+          livenessProbe:
+            tcpSocket:
+              port: 3001
+            initialDelaySeconds: 5
+            periodSeconds: 2
+            timeoutSeconds: 2
+            failureThreshold: 2
+          readinessProbe:
+            tcpSocket:
+              port: 3001
+            initialDelaySeconds: 5
+            periodSeconds: 2
+            timeoutSeconds: 2
+            failureThreshold: 2
           ports: 
             - containerPort: 3001
 

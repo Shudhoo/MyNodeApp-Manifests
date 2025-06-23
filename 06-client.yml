@@ -19,6 +19,27 @@ spec:
       containers:
         - name: client-cont
           image: shudhodhan/nodeappclient:27
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"          
+          livenessProbe:
+            tcpSocket:
+              port: 5173  # This is for node later if changed the image to nginx make it 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 4
+            failureThreshold: 2
+          readinessProbe:
+            tcpSocket:
+              port: 5173  # This is for node later if changed the image to nginx make it 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 4
+            failureThreshold: 2
           ports:
             - containerPort: 5173
 
